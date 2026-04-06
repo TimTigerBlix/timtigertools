@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim Tiger Tools — Digitale undervisningsværktøjer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f4;
+            --text: #1a1a1a;
+            --text-muted: #6b6560;
+            --accent: #e8643a;
+            --accent-light: #fff0eb;
+            --card-bg: #ffffff;
+            --card-border: #eae6e1;
+            --tag-bg: #f3f0ec;
+            --shadow: 0 2px 12px rgba(0,0,0,0.06);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.10);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── Header ── */
+        .header {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem 2rem;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tiger-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .header-name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            max-width: 600px;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* ── Grid ── */
+        .tools-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        /* ── Card ── */
+        .tool-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+            position: relative;
+        }
+
+        .tool-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .tool-card-emoji {
+            font-size: 2rem;
+            margin-bottom: 0.75rem;
+            line-height: 1;
+        }
+
+        .tool-card h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tool-tag {
+            background: var(--tag-bg);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.25rem 0.65rem;
+            border-radius: 100px;
+        }
+
+        .tool-card-arrow {
+            position: absolute;
+            top: 1.75rem;
+            right: 1.75rem;
+            color: var(--accent);
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: opacity 0.25s, transform 0.25s;
+            font-size: 1.1rem;
+        }
+
+        .tool-card:hover .tool-card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ── Footer ── */
+        .footer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        /* ── Fade-in animation ── */
+        .tool-card {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: cardIn 0.5s ease forwards;
+        }
+
+        .tool-card:nth-child(1) { animation-delay: 0.05s; }
+        .tool-card:nth-child(2) { animation-delay: 0.1s; }
+        .tool-card:nth-child(3) { animation-delay: 0.15s; }
+        .tool-card:nth-child(4) { animation-delay: 0.2s; }
+        .tool-card:nth-child(5) { animation-delay: 0.25s; }
+        .tool-card:nth-child(6) { animation-delay: 0.3s; }
+
+        @keyframes cardIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .header { padding: 3rem 1.25rem 1.5rem; }
+            .tools-grid { padding: 1rem 1.25rem 3rem; grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-logo">
+        <span class="tiger-icon">🐯</span>
+        <span class="header-name">Tim Tiger Tools</span>
+    </div>
+    <h1>Digitale værktøjer til undervisningen</h1>
+    <p>En samling af interaktive apps og ressourcer, lavet til folkeskolen. Frit tilgængelige — brug dem, del dem, lad dig inspirere.</p>
+</header>
+
+<main class="tools-grid">
+
+    <a href="https://www.unews.dk" class="tool-card" target="_blank">
+        <span class="tool-card-arrow">→</span>
+        <div class="tool-card-emoji">📰</div>
+        <h2>U-News</h2>
+        <p>Elevdrevet nyhedsside fra Utterslev Skole. Journalistik-projekt hvor eleverne researcher, skriver og publicerer artikler.</p>
+        <div class="tool-tags">
+            <span class="tool-tag">Dansk</span>
+            <span class="tool-tag">Journalistik</span>
+            <span class="tool-tag">Projektuge</span>
+        </div>
+    </a>
+
+    <a href="http://tim-tiger-blichfeldt.netlify.app" class="tool-card" target="_blank">
+        <span class="tool-card-arrow">→</span>
+        <div class="tool-card-emoji">📝</div>
+        <h2>Grammatik-øvelser</h2>
+        <p>Interaktive øvelser i sætningsled, kommaregler og grammatik. Eleverne øver sig og får feedback med det samme.</p>
+        <div class="tool-tags">
+            <span class="tool-tag">Dansk</span>
+            <span class="tool-tag">Grammatik</span>
+            <span class="tool-tag">5. klasse</span>
+        </div>
+    </a>
+
+    <a href="http://weatherpresenterapp.netlify.app" class="tool-card" target="_blank">
+        <span class="tool-card-arrow">→</span>
+        <div class="tool-card-emoji">🌦️</div>
+        <h2>Vejrudsigts-presenter</h2>
+        <p>Eleverne præsenterer vejrudsigten som rigtige meteorologer. Træner mundtlig fremstilling med en sjov ramme.</p>
+        <div class="tool-tags">
+            <span class="tool-tag">Mundtlighed</span>
+            <span class="tool-tag">Præsentation</span>
+        </div>
+    </a>
+
+    <a href="http://duksebingo5a.netlify.app" class="tool-card" target="_blank">
+        <span class="tool-card-arrow">→</span>
+        <div class="tool-card-emoji">🎲</div>
+        <h2>Elev-lodtrækning</h2>
+        <p>Tilfældig udvælgelse af elever og gruppedannelse. Gør det nemt og fair at fordele ture og grupper i klassen.</p>
+        <div class="tool-tags">
+            <span class="tool-tag">Klasseledelse</span>
+            <span class="tool-tag">Grupper</span>
+        </div>
+    </a>
+
+    <a href="http://kryds.netlify.app" class="tool-card" target="_blank">
+        <span class="tool-card-arrow">→</span>
+        <div class="tool-card-emoji">✖️</div>
+        <h2>Kryds</h2>
+        <p>Interaktivt kryds-og-tværs spil som kan bruges i undervisningen som belønning eller hjernepauser.</p>
+        <div class="tool-tags">
+            <span class="tool-tag">Spil</span>
+            <span class="tool-tag">Hjernepause</span>
+        </div>
+    </a>
+
+    <a href="http://boerges-quiziple.netlify.app" class="tool-card" target="_blank">
+        <span class="tool-card-arrow">→</span>
+        <div class="tool-card-emoji">🧠</div>
+        <h2>Børges Quiziple</h2>
+        <p>Quiz-app med ugentlige quizzer og arkiv. Perfekt til quiz-aftener eller som del af undervisningen.</p>
+        <div class="tool-tags">
+            <span class="tool-tag">Quiz</span>
+            <span class="tool-tag">Socialt</span>
+        </div>
+    </a>
+
+</main>
+
+<footer class="footer">
+    Lavet med ❤️ af Tim Tiger Blichfeldt — lærer på Utterslev Skole
+</footer>
+
+</body>
+</html>
